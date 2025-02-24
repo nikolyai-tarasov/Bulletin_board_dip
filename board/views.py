@@ -27,6 +27,8 @@ class AdListAPIView(generics.ListAPIView):
     filterset_fields = ("title", "author")
 
 
+
+
 class AdUpdateAPIView(generics.UpdateAPIView):
     """Эндпоинт редактирования объявления"""
 
