@@ -14,7 +14,6 @@ class BulletinBoard(admin.ModelAdmin):
     )
 
 
-
 @admin.register(Review)
 class Review(admin.ModelAdmin):
     list_display = (

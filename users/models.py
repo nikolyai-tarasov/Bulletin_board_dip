@@ -1,5 +1,5 @@
 import uuid
-import  datetime
+import datetime
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -13,24 +13,16 @@ class User(AbstractUser):
     ]
 
     first_name = models.CharField(
-        max_length=200,
-        verbose_name="Имя",
-        help_text="Укажите имя"
+        max_length=200, verbose_name="Имя", help_text="Укажите имя"
     )
     last_name = models.CharField(
-        max_length=200,
-        verbose_name="Фамилия",
-        help_text="Укажите фамилию"
+        max_length=200, verbose_name="Фамилия", help_text="Укажите фамилию"
     )
     email = models.EmailField(
-        unique=True,
-        verbose_name="Почта",
-        help_text="Укажите почту"
+        unique=True, verbose_name="Почта", help_text="Укажите почту"
     )
     phone = models.CharField(
-        max_length=35,
-        verbose_name="Телефон",
-        help_text="Укажите телефон"
+        max_length=35, verbose_name="Телефон", help_text="Укажите телефон"
     )
     city = models.CharField(
         max_length=150,
@@ -41,16 +33,15 @@ class User(AbstractUser):
         upload_to="users/avatars",
         verbose_name="Аватар",
         help_text="Загрузите аватар",
-        blank=True, null=True
+        blank=True,
+        null=True,
     )
-    role = models.CharField(
-        max_length=25,
-        choices=STATUS_CHOICES,
-        default="user"
-    )
+    role = models.CharField(max_length=25, choices=STATUS_CHOICES, default="user")
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", ]
+    REQUIRED_FIELDS = [
+        "username",
+    ]
 
     class Meta:
         verbose_name = "пользователь"
@@ -61,21 +52,14 @@ class User(AbstractUser):
 
 
 class PasswordResetToken(models.Model):
-    """ Модуль сохранения токенов для пользователей """
+    """Модуль сохранения токенов для пользователей"""
 
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE
-    )
-    token = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False, unique=True
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def is_valid(self, lifetime_minutes=settings.PASSWORD_RESET_TIMEOUT_MINUTES):
-        """ Определение метода для проверки срока действия токена """
+        """Определение метода для проверки срока действия токена"""
 
         expiration_time = self.created_at + datetime.timedelta(minutes=lifetime_minutes)
         return timezone.now() < expiration_time

@@ -12,20 +12,18 @@ class BulletinBoard(models.Model):
     )
 
     price = models.PositiveIntegerField(
-        verbose_name="Стоймость товара",
-        help_text="Введите стоймость товара"
+        verbose_name="Стоймость товара", help_text="Введите стоймость товара"
     )
 
     description = models.TextField(
-        verbose_name="Описание товара",
-        help_text="Введите описание товара"
+        verbose_name="Описание товара", help_text="Введите описание товара"
     )
 
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE,
+        User,
+        on_delete=models.CASCADE,
         related_name="author_ad",
     )
-
 
     class Meta:
         verbose_name = "Объявление"
@@ -40,21 +38,16 @@ class BulletinBoard(models.Model):
 
 
 class Review(models.Model):
-    text = models.TextField(
-        verbose_name="Текс отзыва",
-         help_text="Введите Ваш отзыв"
-    )
+    text = models.TextField(verbose_name="Текс отзыва", help_text="Введите Ваш отзыв")
 
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE,
+        User,
+        on_delete=models.CASCADE,
         related_name="author_review",
     )
 
-    ad = models.ForeignKey(
-        BulletinBoard,
-        on_delete=CASCADE, related_name="ad")
+    ad = models.ForeignKey(BulletinBoard, on_delete=CASCADE, related_name="ad")
 
     created_at = models.DateTimeField(
-        blank=True, null=True,
-        help_text="Введите дату и время создания отзыва"
+        blank=True, null=True, help_text="Введите дату и время создания отзыва"
     )

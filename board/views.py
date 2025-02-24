@@ -12,16 +12,19 @@ class AdCreateAPIView(generics.CreateAPIView):
     """Эндпоинт создания объявления"""
 
     serializer_class = AdSerializer
-    permission_classes = [IsAuthenticated | IsManager]
+    permission_classes = [IsAuthenticated]
 
 
 class AdListAPIView(generics.ListAPIView):
     """Эндпоинт списка объявлений"""
+
     serializer_class = AdSerializer
     queryset = BulletinBoard.objects.all()
     pagination_class = BulletinBoardPaginator
-    filter_backends = [DjangoFilterBackend,]
-    filterset_fields = ('title', 'author')
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+    filterset_fields = ("title", "author")
 
 
 class AdUpdateAPIView(generics.UpdateAPIView):
@@ -37,7 +40,7 @@ class AdRetrieveAPIView(generics.RetrieveAPIView):
 
     serializer_class = AdSerializer
     queryset = BulletinBoard.objects.all()
-    permission_classes = [IsAuthenticated | IsManager]
+    permission_classes = [IsOwner | IsManager]
 
 
 class AdDestroyAPIView(generics.DestroyAPIView):
@@ -47,21 +50,24 @@ class AdDestroyAPIView(generics.DestroyAPIView):
     permission_classes = [IsOwner | IsManager]
 
 
-
-
 class ReviewCreateAPIView(generics.CreateAPIView):
     """Эндпоинт создания отзыва"""
 
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated | IsManager]
+    permission_classes = [IsAuthenticated]
+
 
 class ReviewListAPIView(generics.ListAPIView):
-    """ Эндпоинт списка отзывов"""
+    """Эндпоинт списка отзывов"""
+
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
     pagination_class = BulletinBoardPaginator
-    filter_backends = [DjangoFilterBackend, ]
-    filterset_fields = ('ad', 'author')
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+    filterset_fields = ("ad", "author")
+
 
 class ReviewUpdateAPIView(generics.UpdateAPIView):
     """Эндпоинт редактирования отзыва"""
@@ -76,7 +82,7 @@ class ReviewRetrieveAPIView(generics.RetrieveAPIView):
 
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
-    permission_classes = [IsAuthenticated | IsManager]
+    permission_classes = [IsOwner | IsManager]
 
 
 class ReviewDestroyAPIView(generics.DestroyAPIView):
