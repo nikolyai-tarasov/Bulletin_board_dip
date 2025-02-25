@@ -5,6 +5,7 @@ from users.models import User
 
 
 class BulletinBoard(models.Model):
+    """ Модель доски объявлений """
     title = models.CharField(
         max_length=200,
         verbose_name="Название товара",
@@ -38,6 +39,7 @@ class BulletinBoard(models.Model):
 
 
 class Review(models.Model):
+    """ Модель отзывов """
     text = models.TextField(verbose_name="Текс отзыва", help_text="Введите Ваш отзыв")
 
     author = models.ForeignKey(
