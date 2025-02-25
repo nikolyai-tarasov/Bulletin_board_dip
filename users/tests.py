@@ -12,29 +12,11 @@ class UserTestCase(APITestCase):
             email="kolya.tarasov2@mail.com",
             username="kuzon2",
             password="pass2",
+
             is_active=True,
         )
 
         self.client.force_authenticate(user=self.user)
-
-    def test_create_user(self):
-        """Тестирование создания пользователя"""
-
-        data = {
-            "username": "kuz",
-            "email": "kolya.tarasov222@mail.com",
-            "password": "pass234",
-            "last_name": "Tarasov",
-            "first_name": "Nik",
-            "phone": "89954354123",
-            "city": "Moscow",
-        }
-
-        response = self.client.post("/users/register/", data=data)
-
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        self.assertEqual(User.objects.all().count(), 2)
 
     def test_retrieve_user(self):
         """Тестирование вывода страницы пользователя"""
@@ -67,6 +49,7 @@ class UserTestCase(APITestCase):
             "username": "kolta",
             "email": "kol.tara@1.com",
             "password": "123321",
+            "password2": "123321",
             "phone": "231298434",
             "city": "Mos",
             "last_name": "Doc",
@@ -77,6 +60,7 @@ class UserTestCase(APITestCase):
 
         response = self.client.post(url, data)
         data_ = response.json()
+
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

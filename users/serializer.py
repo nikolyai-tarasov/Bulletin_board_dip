@@ -15,8 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
             "phone",
             "city",
             "avatar",
-            "password",
-            "password2",
         )
 
 

@@ -15,6 +15,10 @@ class AdTestCase(APITestCase):
         self.ad = BulletinBoard.objects.create(
             title="RX 590 8GB", price=7890, description="Good", author=self.user
         )
+        self.review = Review.objects.create(text="Интересная видеокарта",
+            author=self.user,
+            ad=self.ad,
+        )
         self.client.force_authenticate(user=self.user)
 
     def test_create_ad(self):
@@ -25,9 +29,12 @@ class AdTestCase(APITestCase):
             "price": 7890,
             "description": "testing",
             "author": 1,
+
         }
 
         response = self.client.post("/create_ad/", data=data)
+        data_ = response.json()
+
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -92,14 +99,17 @@ class ReviewTestCase(APITestCase):
         self.client.force_authenticate(user=self.user_1)
 
     def test_create_review(self):
-        """Тестирование создания объявления"""
+        """Тестирование создания отзыва"""
         data = {
-            "text": "test",
+            "text": 1,
             "ad": 6,
             "author": 5,
         }
 
         response = self.client.post("/create_review/", data=data)
+        data_ = response.json()
+
+
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

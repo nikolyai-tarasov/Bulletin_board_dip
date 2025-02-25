@@ -1,3 +1,4 @@
+from isort.profiles import black
 from rest_framework import serializers
 from board.models import BulletinBoard, Review
 
@@ -12,7 +13,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class AdSerializer(serializers.ModelSerializer):
     """Сериалазер модели 'BulletinBoard' для работы с эндпоинтами объявлений 'ad'"""
-    review = ReviewSerializer(source='ad', many=True)
+    review = ReviewSerializer(source='ad', many=True,  required=False, allow_null=True, default='')
 
     class Meta:
         model = BulletinBoard
