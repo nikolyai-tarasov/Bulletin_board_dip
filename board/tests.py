@@ -33,7 +33,7 @@ class AdTestCase(APITestCase):
         }
 
         response = self.client.post("/create_ad/", data=data)
-        data_ = response.json()
+
 
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
